@@ -19,6 +19,7 @@ class Robot(object):
         self.niose_measurement = 0.0
         self.sep = 0.4   #  wheel seperation
         self.radius = 0.1   #  wheel radius
+        self._MAP = np.array([[0, 0],[2, 2]], dtype=np.float)  # pylint: disable-msg=C0103
 
 
     def set_state(self, new_state):
@@ -52,3 +53,25 @@ class Robot(object):
         y = y + (slip_sum / 2) * np.sin(phi + slip_diff / (2 * self.sep))
         phi = phi + slip_diff / self.sep
         self.state = np.array([x, y, phi], dtype=np.float64)
+
+
+    def set_map(self, landmarks):
+        """set_map: set the map defined by land marks
+
+        :landmarks: `[x0, y0][x1, y1]` ie x,y location of land marks
+
+        """
+        self._MAP = np.array(landmarks, dtype=np.float).reshape(-1, 2)  # pylint:disable-msg=C0103
+
+
+    def sense(self):
+        """sense: generate sensor readings, using environment map
+        :returns: sensor `readings` of the form [range0, bearing0] correspoding to every landmark
+
+        """
+        cur_pos = self.state[:2]
+        diff = self._MAP - cur_pos
+        diffx, diffy = diff[:, 0], diff[:, 1]
+        ranges = np.hypot(diffx, diffy)
+        bearings = np.arctan2(diffy, diffx) - self.state[2]
+        return np.vstack((ranges, bearings)).T
