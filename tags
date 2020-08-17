@@ -1,0 +1,37 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ANIMATE	plotter_process.py	/^ANIMATE = True$/;"	v
+MAP	plotter_process.py	/^MAP = np.array([[0, 0], [3, 5], [5, -7], [-1, 8], [-8, -9], [-8, 8]], dtype=np.float)$/;"	v
+MCL	particle_filter.py	/^class MCL(object):$/;"	c
+NUM	plotter_process.py	/^NUM = 100$/;"	v
+Robot	robot.py	/^class Robot(object):$/;"	c
+SOCKET_PATH	localise.py	/^    SOCKET_PATH = "\/tmp\/python-data-socket"$/;"	v
+VIEW_PROB	plotter_process.py	/^VIEW_PROB = True$/;"	v
+__init__	particle_filter.py	/^    def __init__(self, NUM, mean, std):$/;"	m	class:MCL
+__init__	robot.py	/^    def __init__(self, x, y, phi):$/;"	m	class:Robot
+calc_weights	particle_filter.py	/^    def calc_weights(self, readings):$/;"	m	class:MCL
+generate_ML_Field	plotter_process.py	/^def generate_ML_Field(MAP, MAP_size, res):$/;"	f
+get_state	robot.py	/^    def get_state(self):$/;"	m	class:Robot
+line_heading	plotter_process.py	/^    line_heading = []$/;"	v
+line_heading_p	plotter_process.py	/^    line_heading_p = []$/;"	v
+line_particles	plotter_process.py	/^    line_particles = []$/;"	v
+line_poses	plotter_process.py	/^    line_poses = []$/;"	v
+line_scans	plotter_process.py	/^    line_scans = []$/;"	v
+line_targets	plotter_process.py	/^    line_targets = []$/;"	v
+main	localise.py	/^def main(socket_path):$/;"	f
+move	robot.py	/^    def move(self, cmd):$/;"	m	class:Robot
+pf	plotter_process.py	/^def pf(my_pf, readings):$/;"	f
+propose	particle_filter.py	/^    def propose(self, cmd):$/;"	m	class:MCL
+sense	robot.py	/^    def sense(self):$/;"	m	class:Robot
+set_ML_field	particle_filter.py	/^    def set_ML_field(self, ML_Field):$/;"	m	class:MCL
+set_map	robot.py	/^    def set_map(self, landmarks):$/;"	m	class:Robot
+set_state	robot.py	/^    def set_state(self, new_state):$/;"	m	class:Robot
+start_client	client.py	/^def start_client(socket_path):$/;"	f
+start_client	worker_localiser.py	/^def start_client(socket_path):$/;"	f
+start_server	plotter_process.py	/^def start_server(socket_path):$/;"	f
+start_server	server.py	/^def start_server(socket_path):$/;"	f
+test_robot	localise.py	/^def test_robot():$/;"	f

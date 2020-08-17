@@ -20,12 +20,12 @@ def main(socket_path):
     """
     # creating processes
     process_plotter = multiprocessing.Process(target=plotter_process.start_server, args=(socket_path, ))
-    time.sleep(5)
     process_worker = multiprocessing.Process(target=worker_localiser.start_client, args=(socket_path, ))
     # process_worker = multiprocessing.Process(target=test_robot)
 
     # starting process 1
     process_plotter.start()
+    time.sleep(2)
     # starting process 2
     process_worker.start()
 
@@ -49,5 +49,5 @@ def test_robot():
 
 
 if __name__ == "__main__":
-    SOCKET_PATH = "/tmp/python-data-socket.s"
+    SOCKET_PATH = "/tmp/python-data-socket"
     main(SOCKET_PATH)

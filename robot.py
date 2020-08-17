@@ -19,7 +19,9 @@ class Robot(object):
         self.niose_measurement = 0.0
         self.sep = 0.4   #  wheel seperation
         self.radius = 0.1   #  wheel radius
-        self._MAP = np.array([[0, 0],[2, 2]], dtype=np.float)  # pylint: disable-msg=C0103
+        self._MAP = np.array([[0, 0], [3, 5], [5, -7], [-1, 8], [-8, -9], [-8, 8]], dtype=np.float)
+        self._NUM_OF_LM = 6
+
 
 
     def set_state(self, new_state):
@@ -62,6 +64,7 @@ class Robot(object):
 
         """
         self._MAP = np.array(landmarks, dtype=np.float).reshape(-1, 2)  # pylint:disable-msg=C0103
+        self._NUM_OF_LM = len(self._MAP)
 
 
     def sense(self):
@@ -70,7 +73,7 @@ class Robot(object):
 
         """
         cur_pos = self.state[:2]
-        diff = self._MAP - cur_pos
+        diff = self._MAP - cur_pos + 0.1 * (np.random.rand(self._NUM_OF_LM, 2) - 0.05)
         diffx, diffy = diff[:, 0], diff[:, 1]
         ranges = np.hypot(diffx, diffy)
         bearings = np.arctan2(diffy, diffx) - self.state[2]

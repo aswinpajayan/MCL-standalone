@@ -25,6 +25,8 @@ class MCL(object):
         self.weights = np.ones(NUM, dtype=np.float) / NUM
         self._sep = 0.4   #  wheel seperation
         self._radius = 0.1   #  wheel radius
+        self._ML_Field = np.zeros((100, 100), dtype=np.float)  # pylint:disable-msg=C0103
+        self.ends = np.zeros((self._NUM, 2, 6))
 
 
     def propose(self, cmd):
@@ -59,16 +61,48 @@ class MCL(object):
         [range2, bearing2]]
 
         """
+        readings = readings.reshape(-1, 2)
         self.weights = np.ones(self._NUM, dtype=np.float)
-        for reading in readings:
+        for i, reading in enumerate(readings):
             endpoints_x = self.particles[:, 0] + reading[0] * np.cos(reading[1] + self.particles[:, 2])
-            endpoints_y = self.particles[:, 0] + reading[0] * np.cos(reading[1] + self.particles[:, 2])
-            
+            endpoints_y = self.particles[:, 0] + reading[0] * np.sin(reading[1] + self.particles[:, 2])
+           # print(endpoints_y[np.abs(endpoints_y) > 10])
+           # print("one it over")
+            row = -1 * endpoints_y * 10  + len(self._ML_Field) / 2 
+            col = endpoints_x * 10 +  len(self._ML_Field) / 2 
+      #  ML_Field[-point[1] + MAP_size * res // 2 -1, point[0] + MAP_size * res //2-1] = 1.0
+            self.ends[:, :, i] = np.hstack((row.reshape((-1, 1)), col.reshape((-1, 1))))
+            self.weights *= self._ML_Field[np.asarray(row, dtype=np.int), np.asarray(col, dtype=np.int)]
+        sum_weights = sum(self.weights)
+        if(sum_weights != 0):
+            self.weights = self.weights / sum_weights
+        else:
+            print('encountered all zeros')
+            self.weights = np.ones(self._NUM) / self._NUM
 
-    def set_ML_field(self, ML_Field):
+
+    def sample(self):
+        """
+        function to perform low variance sampling
+        taken from S thruns Book
+        """
+        indeces = []
+        r = np.random.uniform(0, 1 / self._NUM)
+        c = self.weights[0]
+        i = 0
+        for m in np.arange(self._NUM):
+            u = r + (m - 1) * (1 / self._NUM)
+            while(u > c):
+                i += 1
+                c += self.weights[i]
+            indeces.append(i)
+        self.particles = self.particles[indeces]
+
+
+    def set_ML_field(self, ML_Field):  # pylint:disable-msg=C0103
         """set_ML_field: set ML field to PF
 
         :ML_field: grayscale map for ML field 0 - no likelihood, 1 - max possibility
 
         """
-        self._ML_Field = ML_Field
+        self._ML_Field = ML_Field  # pylint:disable-msg=C0103
