@@ -29,4 +29,4 @@ to run the code
     - red circle represents true position of robot
     - green dots represents the particles 
     - landmarks are represented by stars
-![localisation]('./gifs/MCL-final.gif')
+![localisation]('gifs/MCL-final.gif')
