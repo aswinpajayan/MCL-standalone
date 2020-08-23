@@ -26,4 +26,7 @@ to run the code
   - based on Airobotics course by S.Thrun 
   
 # Results
-[localisation]('./gifs/MCL-final.gif')
+    - red circle represents true position of robot
+    - green dots represents the particles 
+    - landmarks are represented by stars
+![localisation]('./gifs/MCL-final.gif')
