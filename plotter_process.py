@@ -25,7 +25,7 @@ def generate_ML_Field(MAP, MAP_size, res):
     :returns: ML_Field as a grayscale probabilty image
 
     """
-    _std, _k_size = 0.1 * res, 2.5 * res
+    _std, _k_size = 0.5 * res, 2.5 * res
     ML_Field = np.zeros((MAP_size * res, MAP_size * res), dtype=np.float)
     cov = np.diag([_std ** 2, _std ** 2])
     mean = np.array([0, 0], dtype=np.float)
@@ -116,7 +116,8 @@ def pf(my_pf, readings):
     """
     global line_targets, im, fig2, line_prob, fig0  # pylint: disable-msg=W0603
     my_pf.propose([1, 0.25])
-    my_pf.calc_weights(readings)
+    # my_pf.calc_weights(readings)
+    my_pf.calc_weights_plain(readings)
     my_pf.sample()
     line_targets.set_data(my_pf.particles[:, 0], my_pf.particles[:, 1])
     ends = np.asarray(my_pf.ends, dtype=np.int)

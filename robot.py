@@ -73,7 +73,7 @@ class Robot(object):
 
         """
         cur_pos = self.state[:2]
-        diff = self._MAP - cur_pos + 0.1 * (np.random.rand(self._NUM_OF_LM, 2) - 0.05)
+        diff = self._MAP - cur_pos + 0.01 * (np.random.rand(self._NUM_OF_LM, 2) - 0.05)
         diffx, diffy = diff[:, 0], diff[:, 1]
         ranges = np.hypot(diffx, diffy)
         bearings = np.arctan2(diffy, diffx) - self.state[2]

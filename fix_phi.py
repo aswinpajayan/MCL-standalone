@@ -51,8 +51,7 @@ class MCL(object):
         self.particles[:, 0] += (slip_sum / 2) * np.cos(self.particles[:, 2] + slip_diff / (2 * self._sep))
         self.particles[:, 1] += (slip_sum / 2) * np.sin(self.particles[:, 2] + slip_diff / (2 * self._sep))
         self.particles[:, 2] += slip_diff / self._sep
-        self.particles[:,:2] += np.random.rand(self._NUM,2) * 0.02
-        self.particles[:,2] += np.random.rand(self._NUM) * 0.5
+        self.particles[:,:2] += np.random.rand(self._NUM,2) * 0.00002
 
     def gaussian(self, mu, sigma, x):
         
@@ -92,7 +91,7 @@ class MCL(object):
         for i, p in enumerate(self.MAP):
             diff = self.particles[:,:2] - p
             dist = np.hypot(diff[:,0], diff[:,1])
-            self.weights *= self.gaussian(dist, 0.5, readings[i, 0])
+            self.weights *= self.gaussian(dist, 0.2, readings[i, 0])
             # print(type(self.weights), self.weights.shape)
         sum_weights = np.sum(self.weights)
         if(sum_weights != 0):
