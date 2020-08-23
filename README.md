@@ -30,4 +30,4 @@ to run the code
     - green dots represents the particles 
     - landmarks are represented by stars
 
-![localisation](gifs/MCL_final.gif)
+![localisation](gifs/MCL_working.gif)
